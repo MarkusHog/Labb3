@@ -46,10 +46,12 @@ namespace Labb3Library
             Directory.CreateDirectory(folderPath);
             
             string[] fileArray = Directory.GetFiles(folderPath);
+            
             foreach (var file in fileArray)
             {
+                //Path.GetFileNameWithoutExtension(file);
                 //writer.WriteLine(file);
-                Console.WriteLine(file);
+                Console.WriteLine(Path.GetFileNameWithoutExtension(file));
             }
                 return fileArray;
 
@@ -76,11 +78,7 @@ namespace Labb3Library
               //string[] languages = readlines[0].Split(new[] { ';' });
            
 
-            foreach (var item in languages) // ta bort enbart för testning
-            {
-            Console.Write(item+" ; "); // ta bort enbart för testning
-
-            }
+           
 
             for (int i = 0; i < readlines.Length; i++)
             {

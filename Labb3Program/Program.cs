@@ -99,9 +99,11 @@ using Labb3Library;
 
             case "-add":
 
-                Console.WriteLine("Enter a word in language1");
+                string language1 = Wordlist.LoadList(input2[1]).Languages[0].ToString();
+                string language2 = Wordlist.LoadList(input2[1]).Languages[1].ToString();
+                Console.WriteLine($"Enter a word in {language1}");
                 string firstWord = Console.ReadLine();
-                Console.WriteLine("Enter a word in language2");
+                Console.WriteLine($"Enter a word in {language2}");
                 string secondWord = Console.ReadLine();
 
                 Wordlist.LoadList(input2[1]).Add(firstWord, secondWord);
