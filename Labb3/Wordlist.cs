@@ -118,8 +118,6 @@ namespace Labb3Library
                 //Console.WriteLine($"{Languages[0]};{Languages[1]}");
 
 
-
-
                 for (int i = 0; i < Words.Count; i++)//words
                 {
 
@@ -168,30 +166,53 @@ namespace Labb3Library
 
         public bool Remove(int translation, string word)
         {
-            if(translation < Languages.Length || translation > Languages.Length)
+            foreach (var item in Words)
             {
-                return false;
-            }
-            else
-            {
-                Words.RemoveAt(translation);
-                //words.Remove(word);
-                Save();
+               if(item.Translations[translation].Equals(word))
+                {
+                int indexToRemove = item.Translations[translation].IndexOf(word);
+                Words.RemoveAt(indexToRemove+1);
                 return true;
+
+                }
+                //Console.WriteLine(item.Translations[translation]);
             }
+
+            //for (int i = 0; i < Words.Count; i++)
+            //{
+            //    if (Words.Translations[i].Equals(word))
+            //        //if (Translations[translation].Equals(word))
+            //    {
+            //        Words.RemoveAt(i);
+            //        return true;
+            //    }
+            //}
+
+
+            //foreach (var item in Words)
+            //{
+            //   if( item.Equals(word))
+            //    {
+            //        Words.RemoveAt(translation);
+
+
+            //    }
+            //}
+
+            //else(wordlist.Equals)
+            //{
+            //    wordlist.
+
+
+            //    Words.RemoveAt(translation);
+            //    //words.Remove(word);
+            //    Save();
+            return false;
+            //}
         }
         public int Count()
         {
-            //int count = 0;
-            //foreach (var item in Words)
-            //{
-            //    count += 1;
-            //}
-            //int totcount = count;
-            //for (int i = 0; i < Wordlist.Words.Count; i++)
-            //{
-            //    count += 1;
-            //}
+            
 
             return Words.Count();
         }

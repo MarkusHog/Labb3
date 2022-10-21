@@ -68,7 +68,9 @@ do
             case "-remove":
 
                 string wordToRemove = input2[3];
-                Wordlist wordlist2 = Wordlist.LoadList(input2[1]);
+                Wordlist removelist = Wordlist.LoadList(input2[1]);
+                removelist.Remove(0,wordToRemove);
+               
 
                 //Predicate<Word> sameAs = word => word.Equals(wordToRemove);
                 //Predicate<Wordlist> l1 = l => l.Equals(wordToRemove);
@@ -76,13 +78,15 @@ do
                 // if (input2[3].Equals(Wordlist.LoadList(input2[1])))
 
                 
-                Wordlist.LoadList(input2[1]).Remove(0, input2[3]);
-                Wordlist.LoadList(input2[1]).Save();
+                //Wordlist.LoadList(input2[1]).Remove(0, input2[3]);
+                removelist.Save();
                 break;
 
 
             case "-words":
-                Wordlist.LoadList(input2[1]).List(0, w => Console.WriteLine(w));
+
+                Wordlist sortList = Wordlist.LoadList(input2[1]);
+                sortList.List(0, w => Console.WriteLine(w));
 
                 break;
 
@@ -101,7 +105,7 @@ do
 
             case "-practice":
                 //Wordlist.LoadList(input2[1]).GetWordToPractice();
-
+                
                 break;
 
         }
