@@ -1,61 +1,13 @@
 ﻿using Labb3;
 using Labb3Library;
 
+
 //Wordlist a = new Wordlist("Frukt2", "Norska", "Svenska");
 
-//Wordlist fem = new Wordlist("fem", "språk1", "språk2");
-//fem.Add("ja", "yes");
-//fem.Add("nej", "no");
-//fem.Save();
-//Wordlist.LoadList("test1").Add("hej", "hallå");
-//Wordlist.LoadList("test1").Save();
 
-//Wordlist.LoadList("Frukt").Add("apa","monkey");
-//Wordlist.LoadList("Frukt").Add("gris", "Pig");
-//Wordlist.LoadList("Frukt").Add("hej", "hello");
-//Wordlist.LoadList("Frukt").Save();
-//Wordlist.LoadList("Frukt").GetWordToPractice();
-
-////int numberOfWords = b.Count();
-
-//int count = Wordlist.LoadList("Frukt").Count();
-//Console.WriteLine(count);
-
-
-////b.Add("gyrke", "gurka");
-//b.Add("gulebölj", "banan");
-//b.Add("apple", "äpple");
-//b.Add("tomator", "tomat");
-
-////b.List(0, b => Console.WriteLine(b));
-
-
-//b.Save();
-
-
-//Wordlist a = Wordlist.LoadList("test2");
-//Wordlist a = new Wordlist("Testlista9", "Svenska", "Grekiska");
-//a.Add("katt", "cat");
-//a.Add("hund", "dog");
-//a.Remove(0, "katt");
-//a.Save();
-//b.Remove(1, "Hundlista");
-//Wordlist.LoadList();
-
-//Console.WriteLine();
-//b.Save();
-
-
-
-//ShowParameter();
-
-//void ShowParameter()
-//{
-
-//string input = Console.ReadLine();
-//Console.WriteLine(inputChoice.Contains(input));
-
-
+int abc = 10;
+do
+{
 
     Console.WriteLine("Enter one of the following parameters: ");
     string[] parameterArray = {
@@ -98,25 +50,32 @@ using Labb3Library;
                 break;
 
             case "-add":
-
-                string language1 = Wordlist.LoadList(input2[1]).Languages[0].ToString();
-                string language2 = Wordlist.LoadList(input2[1]).Languages[1].ToString();
-                Console.WriteLine($"Enter a word in {language1}");
+                Wordlist wordlist = Wordlist.LoadList(input2[1]);
+                string languages1 = wordlist.Languages[0];
+                
+                string language2 = wordlist.Languages[1];
+                Console.WriteLine($"Enter a word in {languages1}");
+                
                 string firstWord = Console.ReadLine();
                 Console.WriteLine($"Enter a word in {language2}");
                 string secondWord = Console.ReadLine();
 
-                Wordlist.LoadList(input2[1]).Add(firstWord, secondWord);
-                //Wordlist.LoadList(input2[1]).Save();
+                wordlist.Add(firstWord, secondWord);
+                wordlist.Save();
 
                 break;
 
             case "-remove":
 
                 string wordToRemove = input2[3];
+                Wordlist wordlist2 = Wordlist.LoadList(input2[1]);
 
-                //if (input2[2].Equals(Wordlist.LoadList(input2[1])))
+                //Predicate<Word> sameAs = word => word.Equals(wordToRemove);
+                //Predicate<Wordlist> l1 = l => l.Equals(wordToRemove);
 
+                // if (input2[3].Equals(Wordlist.LoadList(input2[1])))
+
+                
                 Wordlist.LoadList(input2[1]).Remove(0, input2[3]);
                 Wordlist.LoadList(input2[1]).Save();
                 break;
@@ -128,8 +87,11 @@ using Labb3Library;
                 break;
 
             case "-count":
+                Wordlist.LoadList(input2[1]).Save();
+                Console.WriteLine(Wordlist.LoadList(input2[1]).Count());
+                //Wordlist.LoadList(input2[1]).Count();
 
-                Wordlist.LoadList(input2[1]).Count();
+
                 //Console.WriteLine(Wordlist.LoadList(input2[1]).Count());
                 //Console.WriteLine(Wordlist.LoadList(input2[1]).Count());
                 //int count = input2[1].Count();
@@ -145,20 +107,12 @@ using Labb3Library;
         }
 
 
+
+
     }
+} while (abc == 10);
 
-
-
-    //Console.WriteLine(input.Equals(inputChoice));
-
-    //Console.WriteLine(beforeLessthen);
-
-    //for (int i = 0; i < 6; i++)
-    //{
-    //    inputArr[i].Split('<');
-    //    Console.WriteLine(inputArr[i]);
-    //}
-
+  
 
 
 
