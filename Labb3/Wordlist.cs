@@ -45,15 +45,18 @@ namespace Labb3Library
             Directory.CreateDirectory(folderPath);
             
             string[] fileArray = Directory.GetFiles(folderPath);
-            
-            foreach (var file in fileArray)
-            {
-                //writer.WriteLine(file);
-                //string printFilename = Path.GetFileNameWithoutExtension(file);
-                Console.WriteLine(Path.GetFileNameWithoutExtension(file));
-            }
-                return fileArray;
+            string[] printing = new string[fileArray.Length];
+          
+                for (int i = 0; i < printing.Length; i++)
+                {
+                
+                    printing[i] = Path.GetFileNameWithoutExtension(fileArray[i]);
+                }
+                
+          
 
+
+            return printing;
         }
         public static Wordlist LoadList(string name) 
         {
@@ -175,40 +178,13 @@ namespace Labb3Library
                 return true;
 
                 }
-                //Console.WriteLine(item.Translations[translation]);
+                
             }
 
-            //for (int i = 0; i < Words.Count; i++)
-            //{
-            //    if (Words.Translations[i].Equals(word))
-            //        //if (Translations[translation].Equals(word))
-            //    {
-            //        Words.RemoveAt(i);
-            //        return true;
-            //    }
-            //}
-
-
-            //foreach (var item in Words)
-            //{
-            //   if( item.Equals(word))
-            //    {
-            //        Words.RemoveAt(translation);
-
-
-            //    }
-            //}
-
-            //else(wordlist.Equals)
-            //{
-            //    wordlist.
-
-
-            //    Words.RemoveAt(translation);
-            //    //words.Remove(word);
+        
             //    Save();
             return false;
-            //}
+            
         }
         public int Count()
         {
@@ -218,22 +194,19 @@ namespace Labb3Library
         }
         public void List(int sortByTranslation, Action<string[]> showTranslations)
         {
-            //string LoacalAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            //string filePath = Path.Combine(LoacalAppData, "Labb3", $"{Name}.dat");
-            //StreamReader reader = File.OpenText(filePath);
-            //List<string> readlines = File.ReadLines(filePath).ToList();
-            //using TextWriter writer = new StreamWriter(filePath);
+            
 
-            //words = words.OrderBy(w = w.Translations) 
+            //Words = Words.OrderBy(w = w.Translations) 
 
             Words = (from w in Words orderby w.Translations[sortByTranslation] select w).ToList();
 
             
             foreach (Word w in Words)//words
             {
-                showTranslations.Invoke(Translations);
+                //showTranslations.Invoke(Translations);
                 showTranslations(w.Translations);
-                Console.WriteLine(Translations);
+                //Console.WriteLine(w.Translations[].ToString());
+                //string printOrder = $"w.Translation[sortbytranslation[].ToString()";
 
             }
 
@@ -245,17 +218,28 @@ namespace Labb3Library
         }
 
 
-        //public Word GetWordToPractice()
-        //{
+        public Word GetWordToPractice()
+        {
+            int randomTranslation = Random.Shared.Next(0, 1);
+            int randomW = Random.Shared.Next(Words.Count);
+            int randomFromLanguage = Random.Shared.Next(0,1);
+            
+                if (randomFromLanguage == 0) 
+            { 
+                int randomToLanguage = 1; 
+                Word randomWord = new Word(randomFromLanguage, randomToLanguage, Words[randomW].Translations[randomTranslation]);
+                return randomWord;
+            }
+            else 
+            { 
+                Word randomWord = new Word(1, 0, Words[randomW].Translations[randomTranslation]); 
+                return randomWord;
+            
+            }
 
-        //    //int randomTranslation = Random.Shared.Next(words.Count);
-        //    //int randomFromLanguage = Random.Shared.Next(Languages.Length);
-        //    //int randomToLanguage = Random.Shared.Next(Languages.Length);
-        //    //Word randomWord = new Word(randomFromLanguage, randomToLanguage, words[randomTranslation].Translations);
-        //    //int index = Random.Shared.Next(words.Count);
-        //    //Word randomWord = words[index];           
-        //    return randomWord;
-        //}
+           
+          
+        }
 
     }
 }

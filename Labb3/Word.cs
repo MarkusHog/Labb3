@@ -19,9 +19,9 @@ namespace Labb3
       
         public Word(int fromLanguage, int toLanguage, params string[] translations)
         {
-            FromLanguage = fromLanguage;
-            ToLanguage = toLanguage;
-            Translations = translations;
+            this.FromLanguage = fromLanguage;
+            this.ToLanguage = toLanguage;
+            this.Translations = translations;
             
 
         }
