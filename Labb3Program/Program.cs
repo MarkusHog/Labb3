@@ -30,28 +30,20 @@ do
     {
         string[] inputchoise = new[] { "-add", "-lists", "-new", "-add", "-remove", "-words", "-count", "-practice" };
 
-        string input = Console.ReadLine();
-
-       // if (input == parameterArray[0]) Wordlist.GetLists();
+        string input = Console.ReadLine().ToLower();
 
         string[] input2 = input.Split((" "));
 
 
+        
 
         switch (input2[0])
         {
-            case "-lists":
-                //Wordlist.GetLists();
-                //Console.WriteLine(Wordlist.GetLists());
-                foreach (var file in Wordlist.GetLists())
-                {
-                    Console.WriteLine(file);
+
                     
-                }
-                //foreach (var item in Wordlist.GetLists())
-                //{
-                //    Console.WriteLine(item);
-                //}
+            case "-lists":
+                PrintList();
+                
             break;
 
 
@@ -63,7 +55,7 @@ do
 
             case "-add":
 
-
+                
                 Wordlist wordlist = Wordlist.LoadList(input2[1]);
                 string languages1 = wordlist.Languages[0];
 
@@ -74,10 +66,11 @@ do
                 Console.WriteLine($"Enter a word in {language2}");
                 string secondWord = Console.ReadLine();
 
+
                 wordlist.Add(firstWord, secondWord);
                 wordlist.Save();
+                if (!string.IsNullOrEmpty(firstWord) ||!string.IsNullOrEmpty(secondWord)) goto case "-add";
 
-                if (!string.IsNullOrEmpty(firstWord)) goto case "-add";
                 
                 
 
@@ -89,6 +82,14 @@ do
                 
                 string wordToRemove = input2[3];
                 string inputLanguage = input2[2];
+
+                if(wordToRemove == null || inputLanguage == null)
+                {
+                    Console.WriteLine("Invalid input. Try again!");
+                    goto case "-remove";
+                }
+
+
                 int translation = 3;
                 if (inputLanguage.Equals(removelist.Languages[0]))
                 {
@@ -101,13 +102,7 @@ do
                 removelist.Remove(translation,wordToRemove);
                
 
-                //Predicate<Word> sameAs = word => word.Equals(wordToRemove);
-                //Predicate<Wordlist> l1 = l => l.Equals(wordToRemove);
-
-                // if (input2[3].Equals(Wordlist.LoadList(input2[1])))
-
-                
-                //Wordlist.LoadList(input2[1]).Remove(0, input2[3]);
+               
                 removelist.Save();
                 break;
 
@@ -146,10 +141,17 @@ do
                 break;
 
             case "-practice":
-                Wordlist practiceList = Wordlist.LoadList(input2[1]);
-                int randomTranslation = Random.Shared.Next(0, 1);
-                Console.WriteLine(practiceList.GetWordToPractice().Translations[randomTranslation]);
-               
+                do
+                {
+
+                    Wordlist practiceList = Wordlist.LoadList(input2[1]);
+                    int randomTranslation = Random.Shared.Next(0, 1);
+                    //Console.WriteLine(practiceList.GetWordToPractice().Translations[randomTranslation]);
+                    Console.WriteLine(practiceList.GetWordToPractice().Translations[0]);
+                    Console.ReadLine();
+                    //Console.WriteLine(practiceList.GetWordToPractice().Translations[0]);
+                } while (true);
+                
                 break;
 
             default:
@@ -166,6 +168,20 @@ do
 
 
 
+void PrintList()
+{
+    Console.WriteLine();
+    foreach (var file in Wordlist.GetLists())
+    {
+        Console.WriteLine(file);
+
+    }
+    Console.WriteLine();
+
+}
+
+
+
 void PrintSortedWords(string[] translations)
 {
     foreach (string word in translations)
@@ -174,6 +190,12 @@ void PrintSortedWords(string[] translations)
     }
     Console.WriteLine();
 }
+
+//void CantLoadWordlist()
+//{
+    
+//    if (Wordlist.LoadList(name == string.Empty)
+//}
 
 
 //void PrintList()

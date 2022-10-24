@@ -52,56 +52,51 @@ namespace Labb3Library
                 
                     printing[i] = Path.GetFileNameWithoutExtension(fileArray[i]);
                 }
-                
-          
-
 
             return printing;
         }
         public static Wordlist LoadList(string name) 
         {
             
+
             string LoacalAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             string filePath = Path.Combine(LoacalAppData, "Labb3",$"{name}.dat");
-
-
+            
+           
+            
             using (StreamReader reader = new StreamReader(filePath))
             {
-
-            //string[] readlines = File.ReadLines(filePath).ToArray();// ToList(); //read to end??
+               
             string[] readlines = File.ReadAllLines(filePath);
-            //string[] languages = readlines[0].Split(new[] { ';' },StringSplitOptions.RemoveEmptyEntries);
-            
             
             string[] languages = readlines[0].Split( ';' );
 
-                
-
-                Wordlist wordlist = new Wordlist(name, languages);
+            Wordlist wordlist = new Wordlist(name, languages);
 
             for (int i = 0; i < readlines.Length; i++)
             {
                 
                 if (i > 0)
-                {
-
-                        
+                {                     
                         {
-                            wordlist.Add(readlines[i].Split(';'));
-                            
+                            wordlist.Add(readlines[i].Split(';'));  
                         }
 
-                    //Console.WriteLine(readlines[i]);
+                    
                 }
                     reader.Close();
-                    //readlines.Count();
-                
+
            }
-            
+               
+               
+
             return wordlist;
+               
+                
              
             }
             
+           
         }
         public void Save()
         {
@@ -142,8 +137,10 @@ namespace Labb3Library
             string LoacalAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             string filePath = Path.Combine(LoacalAppData, "Labb3", $"{Name}.dat");
 
-            //Word word = new Word(translations[0], translations[1]);
-            //Words.Add(new Word(translations[0],translations[1]));//(translations)
+            if (string.IsNullOrEmpty(translations[0]) || string.IsNullOrEmpty(translations[1]))
+            {
+                return;
+            }
             
             Words.Add(new Word(translations));
             
