@@ -35,16 +35,16 @@ do
         string[] input2 = input.Split((" "));
 
 
-        
+
 
         switch (input2[0])
         {
 
-                    
+
             case "-lists":
                 PrintList();
-                
-            break;
+
+                break;
 
 
             case "-new":
@@ -55,7 +55,7 @@ do
 
             case "-add":
 
-                
+
                 Wordlist wordlist = Wordlist.LoadList(input2[1]);
                 string languages1 = wordlist.Languages[0];
 
@@ -69,21 +69,21 @@ do
 
                 wordlist.Add(firstWord, secondWord);
                 wordlist.Save();
-                if (!string.IsNullOrEmpty(firstWord) ||!string.IsNullOrEmpty(secondWord)) goto case "-add";
+                if (!string.IsNullOrEmpty(firstWord) || !string.IsNullOrEmpty(secondWord)) goto case "-add";
 
-                
-                
+
+
 
                 break;
 
             case "-remove":
 
                 Wordlist removelist = Wordlist.LoadList(input2[1]);
-                
+
                 string wordToRemove = input2[3];
                 string inputLanguage = input2[2];
 
-                if(wordToRemove == null || inputLanguage == null)
+                if (wordToRemove == null || inputLanguage == null)
                 {
                     Console.WriteLine("Invalid input. Try again!");
                     goto case "-remove";
@@ -93,16 +93,18 @@ do
                 int translation = 3;
                 if (inputLanguage.Equals(removelist.Languages[0]))
                 {
-                     translation = 0;
+                    translation = 0;
                 }
+
                 if (inputLanguage.Equals(removelist.Languages[1]))
                 {
-                     translation = 1;
+                    translation = 1;
                 }
-                removelist.Remove(translation,wordToRemove);
-               
 
-               
+                removelist.Remove(translation, wordToRemove);
+
+
+
                 removelist.Save();
                 break;
 
@@ -115,16 +117,17 @@ do
                 {
                     translation2 = 0;
                 }
+
                 if (inputLanguage2.Equals(sortList.Languages[1]))
                 {
                     translation2 = 1;
                 }
-                
+
                 sortList.List(translation2, PrintSortedWords);
-                
+
 
                 //Console.WriteLine();
-                
+
                 break;
 
             case "-count":
@@ -141,27 +144,58 @@ do
                 break;
 
             case "-practice":
+                    Wordlist practiceList = Wordlist.LoadList(input2[1]);
+                    int score = 0;
+                    string practiceInput;
+                    int wrongCount = 0;
                 do
                 {
 
-                    Wordlist practiceList = Wordlist.LoadList(input2[1]);
-                    int randomTranslation = Random.Shared.Next(0, 1);
-                    //Console.WriteLine(practiceList.GetWordToPractice().Translations[randomTranslation]);
-                    Console.WriteLine(practiceList.GetWordToPractice().Translations[0]);
-                    Console.ReadLine();
-                    //Console.WriteLine(practiceList.GetWordToPractice().Translations[0]);
-                } while (true);
-                
+                    //Console.WriteLine(string.Join(";", practiceList.GetWordToPractice().Translations));
+                    Word practiceWord = practiceList.GetWordToPractice();
+                    string fromLangugage = practiceList.Languages[practiceWord.FromLanguage];
+                    string toLanguage = practiceList.Languages[practiceWord.ToLanguage];
+                    string word2Practice = practiceWord.Translations[practiceWord.FromLanguage]; // joel
+                    int randomTranslation = Random.Shared.Next(0, 2);
+
+                    Console.WriteLine(
+                        $"Translate {word2Practice} from {fromLangugage} to {toLanguage}");
+                    practiceInput = Console.ReadLine();
+
+                    if(string.IsNullOrEmpty(practiceInput))
+                    {
+                        PrintScore();
+                    }
+
+                    if (practiceInput == practiceWord.Translations[practiceWord.ToLanguage])
+                    {
+                        Console.WriteLine("Correct!");
+                        score += 1;
+                    }
+                    if(practiceInput != practiceWord.Translations[practiceWord.ToLanguage] )
+                    {
+                        Console.WriteLine($"Incorrect the correct translation is {practiceWord.Translations[1]} ");
+                        wrongCount += 1;
+
+                    }
+
+              
+                    
+                } while (!string.IsNullOrEmpty(practiceInput));
+
+                    void PrintScore()
+                    {
+                        Console.WriteLine($"Youre answered {score} correct and {wrongCount} wrong. Percentage correct answears {(float)score / (score+wrongCount)*100:f0} %");
+
+                    }
+
                 break;
 
-            default:
-                Console.WriteLine("Invalid entry. Try again! ");
-                Console.WriteLine();
-                break;
-        }
-
-
-
+                    default:
+                    Console.WriteLine("Invalid entry. Try again! ");
+                    Console.WriteLine();
+                    break;
+                }
 
     }
 } while (abc == 10);
@@ -190,6 +224,8 @@ void PrintSortedWords(string[] translations)
     }
     Console.WriteLine();
 }
+
+
 
 //void CantLoadWordlist()
 //{

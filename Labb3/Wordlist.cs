@@ -142,7 +142,8 @@ namespace Labb3Library
                 return;
             }
             
-            Words.Add(new Word(translations));
+            //Words.Add(new Word(translations));
+            Words.Add(new Word(translations[0], translations[1] ));
             
             //TextWriter writer = new StreamWriter(filePath, true);
 
@@ -169,12 +170,11 @@ namespace Labb3Library
             foreach (var item in Words)
             {
                if(item.Translations[translation].Equals(word))
-                {
-                int indexToRemove = item.Translations[translation].IndexOf(word);
-                Words.RemoveAt(indexToRemove+1);
-                return true;
-
-                }
+               {
+                    int indexToRemove = item.Translations[translation].IndexOf(word);
+                    Words.RemoveAt(indexToRemove+1);
+                    return true;
+               }
                 
             }
 
@@ -218,18 +218,28 @@ namespace Labb3Library
         public Word GetWordToPractice()
         {
             int randomTranslation = Random.Shared.Next(0, 1);
+            
             int randomW = Random.Shared.Next(Words.Count);
+            
+
             int randomFromLanguage = Random.Shared.Next(0,1);
             
                 if (randomFromLanguage == 0) 
             { 
-                int randomToLanguage = 1; 
-                Word randomWord = new Word(randomFromLanguage, randomToLanguage, Words[randomW].Translations[randomTranslation]);
+                int randomToLanguage = 1;
+                //Word randomWord = new Word(randomFromLanguage, randomToLanguage, Words[randomW].Translations[randomTranslation]);
+                //Word randomWord = new Word(randomFromLanguage, randomToLanguage, Words[randomW].Translations[1], Words[randomW].Translations[1]);//.Translations[randomTranslation]);
+                //Word randomWord = new Word(0, 1, Words[randomW].Translations[0], Words[randomW].Translations[1]);
+                Word randomWord = new Word(0, 1, Words[randomW].Translations);
                 return randomWord;
             }
             else 
             { 
-                Word randomWord = new Word(1, 0, Words[randomW].Translations[randomTranslation]); 
+               // Word randomWord = new Word(1, 0, Words[randomW].Translations[randomTranslation]);
+                //Word randomWord = new Word(1, 0, Words[randomW].Translations[1], Words[randomW].Translations[0]);
+                //Word randomWord = new Word(1, 0, Words[randomW].Translations[1], Words[randomW].Translations[0]);
+                Word randomWord = new Word(1, 0, Words[randomW].Translations);
+              
                 return randomWord;
             
             }
