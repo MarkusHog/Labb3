@@ -2,8 +2,10 @@
 using System.IO;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 
 namespace Labb3Library
@@ -66,6 +68,7 @@ namespace Labb3Library
             
             using (StreamReader reader = new StreamReader(filePath))
             {
+                
                
             string[] readlines = File.ReadAllLines(filePath);
             
@@ -143,8 +146,11 @@ namespace Labb3Library
             }
             
             //Words.Add(new Word(translations));
-            Words.Add(new Word(translations[0], translations[1] ));
+            Words.Add(new Word(translations[0], translations[1]));
+
+
             
+
             //TextWriter writer = new StreamWriter(filePath, true);
 
             //writer.WriteLine($"{translations[0]};{translations[1]}");
@@ -167,19 +173,24 @@ namespace Labb3Library
 
         public bool Remove(int translation, string word)
         {
-            foreach (var item in Words)
-            {
-               if(item.Translations[translation].Equals(word))
-               {
-                    int indexToRemove = item.Translations[translation].IndexOf(word);
-                    Words.RemoveAt(indexToRemove+1);
-                    return true;
-               }
-                
-            }
 
-        
-            //    Save();
+           
+
+      
+            int wordCount = Words.Count;
+
+            for (int i = 0; i < wordCount; i++)
+            {
+                if (Words[i].Translations[translation].Equals(word))
+                {
+                    Words.RemoveAt(i);
+                    wordCount -= 1;
+                    return true;
+                }
+            }
+            
+  
+
             return false;
             
         }
