@@ -233,7 +233,7 @@ namespace Labb3Library
             int randomW = Random.Shared.Next(Words.Count);
             
 
-            int randomFromLanguage = Random.Shared.Next(0,1);
+            int randomFromLanguage = Random.Shared.Next(0,2);
             
                 if (randomFromLanguage == 0) 
             { 

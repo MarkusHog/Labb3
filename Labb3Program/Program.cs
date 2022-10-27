@@ -1,4 +1,5 @@
 ﻿using System.Reflection.Metadata.Ecma335;
+using System.Threading.Channels;
 using Labb3;
 using Labb3Library;
 
@@ -22,7 +23,7 @@ PrintAlternatives();
     //{
         string[] inputchoise = new[] { "-add", "-lists", "-new", "-add", "-remove", "-words", "-count", "-practice" };
 
-        string input = Console.ReadLine().ToLower();
+string input = args[0];// Console.ReadLine().ToLower();
 
         string[] userInput = input.Split((" "));
 
@@ -38,9 +39,9 @@ PrintAlternatives();
                 break;
 
             case "-new":
-                Wordlist currentWordlist = new Wordlist(userInput[1], userInput[2], userInput[3]);
-
-                currentWordlist.Save();
+                //Wordlist currentWordlist = new Wordlist(userInput[1], userInput[2], userInput[3]);
+                Wordlist currentWordlist = new Wordlist(args[1], args[2], args[3]);
+        currentWordlist.Save();
                 break;
 
             case "-add":
@@ -65,9 +66,10 @@ PrintAlternatives();
 
             case "-count":
 
-                Console.WriteLine(Wordlist.LoadList(userInput[1]).Count());
+                //Console.WriteLine(Wordlist.LoadList(userInput[1]).Count());
+                Console.WriteLine(Wordlist.LoadList(args[1]).Count());
 
-                break;
+        break;
 
             case "-practice":
                 PracticeMethod();
@@ -125,6 +127,11 @@ void AddMethod()
         string language2 = wordlist.Languages[1];
         string firstWord;
         string secondWord;
+
+        if (args[1] == null)
+        {
+            Console.WriteLine("Invalid entry try again.");
+        }
         
     do
     {
@@ -151,19 +158,22 @@ void AddMethod()
 
 void RemoveMethod()
 {
-    Wordlist removelist = Wordlist.LoadList(userInput[1]);
+    //Wordlist removelist = Wordlist.LoadList(userInput[1]);
+    Wordlist removelist = Wordlist.LoadList(args[1]);
 
     for (int i = 3; i < userInput.Length; i++)
     {
-        
-    string wordToRemove = userInput[i];
-    string inputLanguage = userInput[2];
-   // Word removeWord = new Word(0,1,wordToRemove,"");
 
-  
- 
-    
-    if (wordToRemove == null || inputLanguage == null)
+        //string wordToRemove = userInput[i];
+        string wordToRemove = args[i];
+        //string inputLanguage = userInput[2];
+        string inputLanguage = args[2];
+        // Word removeWord = new Word(0,1,wordToRemove,"");
+
+
+
+
+        if (wordToRemove == null || inputLanguage == null)
     {
         Console.WriteLine("Invalid input. ");
         return;
@@ -201,7 +211,8 @@ void SortMethod()
     }
 
     Wordlist sortList = Wordlist.LoadList(userInput[1]);
-    string inputLanguage2 = userInput[2];
+    //string inputLanguage2 = userInput[2];
+    string inputLanguage2 = args[2];
     int translation2 = 3;
 
     if (inputLanguage2.Equals(sortList.Languages[0])) { translation2 = 0; }
@@ -251,9 +262,9 @@ void PracticeMethod()
             Console.WriteLine("Correct!");
             score += 1;
         }
-        if (practiceInput != practiceWord.Translations[practiceWord.ToLanguage])
+        else
         {
-            Console.WriteLine($"Incorrect the correct translation is {practiceWord.Translations[1]} ");
+            Console.WriteLine($"Incorrect the correct translation is {practiceWord.Translations[practiceWord.ToLanguage]} ");
             wrongCount += 1;
 
         }
@@ -262,7 +273,7 @@ void PracticeMethod()
 
     void PrintScore()
     {
-        Console.WriteLine($"Youre answered {score} correct and {wrongCount} wrong. Percentage correct answears {(float)score / (score + wrongCount) * 100:f0} %");
+        Console.WriteLine($"Youre answered {score} correct and {wrongCount} wrong. Percentage correct answers {(float)score / (score + wrongCount) * 100:f0} %");
 
     }
 

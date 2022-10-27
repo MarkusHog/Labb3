@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Labb3Program": {
+      "commandName": "Project",
+      "commandLineArgs": "-new fuits swedish english"
+    }
+  }
+}

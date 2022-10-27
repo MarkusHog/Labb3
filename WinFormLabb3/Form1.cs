@@ -1,4 +1,6 @@
+using Labb3Library;
 namespace WinFormLabb3
+
 {
     public partial class Form1 : Form
     {
@@ -7,14 +9,8 @@ namespace WinFormLabb3
             InitializeComponent();
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        
 
-        }
-
-        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
+       
     }
 }
