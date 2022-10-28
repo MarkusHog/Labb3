@@ -4,30 +4,21 @@ using Labb3;
 using Labb3Library;
 
 
-//Wordlist a = new Wordlist("Frukt2", "Norska", "Svenska");
 
 
-PrintAlternatives();
+//PrintAlternatives();
 
 
+        //string[] inputchoise = new[] { "-add", "-lists", "-new", "-add", "-remove", "-words", "-count", "-practice" };
 
-
-
-
-
-
-
-    //InputParameter();
-
-    //void InputParameter()
-    //{
-        string[] inputchoise = new[] { "-add", "-lists", "-new", "-add", "-remove", "-words", "-count", "-practice" };
-
-string input = args[0];// Console.ReadLine().ToLower();
+        string input = args[0].ToLower();
 
         string[] userInput = input.Split((" "));
 
-    
+        if (input.Trim() == string.Empty)
+        {
+            PrintAlternatives();
+        }
 
 
         switch (userInput[0])
@@ -36,12 +27,21 @@ string input = args[0];// Console.ReadLine().ToLower();
 
             case "-lists":
                 PrintList();
+
                 break;
 
             case "-new":
-                //Wordlist currentWordlist = new Wordlist(userInput[1], userInput[2], userInput[3]);
+
+                if (args[1] == string.Empty || args[2] == string.Empty || args[3] == string.Empty)
+                {
+                    Console.WriteLine("Incorrect input. List is not saved.");
+                    
+            break;
+                }
+                
                 Wordlist currentWordlist = new Wordlist(args[1], args[2], args[3]);
-        currentWordlist.Save();
+                currentWordlist.Save();
+                AddMethod();//
                 break;
 
             case "-add":
@@ -56,34 +56,30 @@ string input = args[0];// Console.ReadLine().ToLower();
             
                 break;
 
-
             case "-words":
 
                 SortMethod();
-             
-
+                
                 break;
 
             case "-count":
-
-                //Console.WriteLine(Wordlist.LoadList(userInput[1]).Count());
+             
                 Console.WriteLine(Wordlist.LoadList(args[1]).Count());
 
         break;
 
             case "-practice":
                 PracticeMethod();
-        
-
                 break;
 
             default:
-                Console.WriteLine("Invalid entry. Try again! ");
+                Console.WriteLine("Invalid entry. ");
+                //PrintAlternatives();
                 Console.WriteLine();
                 break;
         }
 
-    //}
+    
 
     void PrintAlternatives()
     {
@@ -122,7 +118,8 @@ void PrintList()
 void AddMethod()
 {
     
-        Wordlist wordlist = Wordlist.LoadList(userInput[1]);
+        
+        Wordlist wordlist = Wordlist.LoadList(args[1]);
         string languages1 = wordlist.Languages[0];
         string language2 = wordlist.Languages[1];
         string firstWord;
@@ -133,47 +130,42 @@ void AddMethod()
             Console.WriteLine("Invalid entry try again.");
         }
         
-    do
-    {
+        do
+        {
+            Console.WriteLine($"Enter a word in {languages1}");
+            firstWord = Console.ReadLine().ToLower();
+            if (string.IsNullOrEmpty(firstWord)) return;
 
-        Console.WriteLine($"Enter a word in {languages1}");
-        firstWord = Console.ReadLine().ToLower();
-        if (string.IsNullOrEmpty(firstWord)) return; 
-        
+            Console.WriteLine($"Enter a word in {language2}"); 
+            secondWord = Console.ReadLine().ToLower();
 
-        Console.WriteLine($"Enter a word in {language2}");
-        secondWord = Console.ReadLine().ToLower();
         if (string.IsNullOrEmpty(secondWord))
         {
             Console.WriteLine($"{firstWord} were not added to the list since no translation was added.");
             return;
         }
 
-        wordlist.Add(firstWord, secondWord);
-        wordlist.Save();
+            wordlist.Add(firstWord, secondWord);
+            wordlist.Save();
         
-    } while (!string.IsNullOrEmpty(firstWord) || !string.IsNullOrEmpty(secondWord));
+        } while (!string.IsNullOrEmpty(firstWord) || !string.IsNullOrEmpty(secondWord));
 
 }
 
 void RemoveMethod()
 {
-    //Wordlist removelist = Wordlist.LoadList(userInput[1]);
+    
     Wordlist removelist = Wordlist.LoadList(args[1]);
 
     for (int i = 3; i < userInput.Length; i++)
     {
 
-        //string wordToRemove = userInput[i];
         string wordToRemove = args[i];
-        //string inputLanguage = userInput[2];
+       
         string inputLanguage = args[2];
-        // Word removeWord = new Word(0,1,wordToRemove,"");
+        
 
-
-
-
-        if (wordToRemove == null || inputLanguage == null)
+    if (wordToRemove == null || inputLanguage == null) 
     {
         Console.WriteLine("Invalid input. ");
         return;
@@ -191,11 +183,8 @@ void RemoveMethod()
         translation = 1;
     }
 
-        
-    
     removelist.Remove(translation, wordToRemove);
-    
-    
+
     removelist.Save();
     
     }
@@ -211,7 +200,6 @@ void SortMethod()
     }
 
     Wordlist sortList = Wordlist.LoadList(userInput[1]);
-    //string inputLanguage2 = userInput[2];
     string inputLanguage2 = args[2];
     int translation2 = 3;
 
@@ -235,14 +223,14 @@ void PrintSortedWords(string[] translations)
 
 void PracticeMethod()
 {
-    Wordlist practiceList = Wordlist.LoadList(userInput[1]);
+    
+    Wordlist practiceList = Wordlist.LoadList(args[1]);
     int score = 0;
     string practiceInput;
     int wrongCount = 0;
     do
     {
-
-        
+ 
         Word practiceWord = practiceList.GetWordToPractice();
         string fromLangugage = practiceList.Languages[practiceWord.FromLanguage];
         string toLanguage = practiceList.Languages[practiceWord.ToLanguage];
@@ -255,6 +243,7 @@ void PracticeMethod()
         if (string.IsNullOrEmpty(practiceInput))
         {
             PrintScore();
+            return;
         }
 
         if (practiceInput == practiceWord.Translations[practiceWord.ToLanguage])

@@ -59,6 +59,8 @@ namespace WinFormsLabb3._1
             ListName.Text = String.Empty;
             textBoxLanguage1.Text = String.Empty;
             textBoxLanguage2.Text = String.Empty;
+            listBoxLists.Items.Clear();
+            ShowAllLists();
         }
 
         private void ListName_TextChanged(object sender, EventArgs e)
@@ -81,13 +83,17 @@ namespace WinFormsLabb3._1
 
         void NewWordList()
         {
+            if (_listName == String.Empty || _language1 == String.Empty || _language2 == String.Empty)
+            {
+                return;
+            }
             Wordlist wordlist = new Wordlist(_listName, _language1, _language2);
             wordlist.Save();
         }
 
         private void textBoxPracticeInput_TextChanged(object sender, EventArgs e)
         {
-            //PracticeWord();
+            
         }
 
         void PracticeWord()
@@ -140,11 +146,7 @@ namespace WinFormsLabb3._1
         {
             _answer = textBoxAnswer.Text;
             CheckIfCorrect();
-            //Practice();
-            //PracticeWord();
-            //PracticeWord();
-            //textBoxAnswer.Text = String.Empty;
-            //Practice();
+           
 
         }
 
@@ -289,19 +291,16 @@ namespace WinFormsLabb3._1
             if (textBoxTranslationsFrom.Text == string.Empty || textBoxWortTo.Text == String.Empty)
             {
                 return;
-
             }
 
             Word word = new Word(translationFrom, translationTo);
 
-
-            //wordlist.Add(translationFrom,translationTo);
             wordlist.Add(word.Translations[0], word.Translations[1]);
             listBoxWords.Items.Add(word.Translations[0] + " ; " + word.Translations[1]);
-            //listBoxWords.Items.Add();
-            //FillListboxWords();
             wordlist.Save();
-            textBoxShowCount.Text = $"Number of words: {wordlist.Count().ToString()}";
+            textBoxShowCount.Text = $"Number of words: {wordlist.Count()}";
+            textBoxTranslationsFrom.Clear();
+            textBoxWortTo.Clear();
 
 
         }
@@ -323,19 +322,11 @@ namespace WinFormsLabb3._1
 
             string thisWordWillBeRemoved = wordToRemove[0].Trim();
 
-
-
-
-
-
             if (_word == null)
             {
-                //Console.WriteLine("Invalid input. ");
                 return;
             }
             listBoxWords.Items.Remove(_word);
-
-
 
 
             removelist.Remove(0, thisWordWillBeRemoved);
@@ -344,6 +335,7 @@ namespace WinFormsLabb3._1
             removelist.Save();
 
             textBoxShowCount.Text = $"Number of words: {removelist.Count().ToString()}";
+            
 
         }
 
@@ -366,9 +358,13 @@ namespace WinFormsLabb3._1
 
         private void buttonSortLanguage2_Click(object sender, EventArgs e)
         {
-            
             _sortLanguage = 1;
             FillListboxWords();
+        }
+
+        private void labelCount_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

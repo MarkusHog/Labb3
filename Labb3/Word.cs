@@ -5,7 +5,7 @@ namespace Labb3
 {
     public class Word
     {
-        //private string[] translations;//
+        
         public string[] Translations { get; }
         public int FromLanguage { get; }
         public int ToLanguage { get; }
