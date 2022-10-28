@@ -6,14 +6,14 @@ using Labb3Library;
 
 
 
-//PrintAlternatives();
+
 
         if (args.Length == 0)
         {
             PrintAlternatives();
         }
 
-        //string[] inputchoise = new[] { "-add", "-lists", "-new", "-add", "-remove", "-words", "-count", "-practice" };
+        
 
         string input = args[0].ToLower();
 
@@ -31,17 +31,9 @@ using Labb3Library;
                 break;
 
             case "-new":
+                NewMethod();
 
-                if (args[1] == string.Empty || args[2] == string.Empty || args[3] == string.Empty)
-                {
-                    Console.WriteLine("Incorrect input. List is not saved.");
-                    
-            break;
-                }
-                
-                Wordlist currentWordlist = new Wordlist(args[1], args[2], args[3]);
-                currentWordlist.Save();
-                AddMethod();//
+                AddMethod();
                 break;
 
             case "-add":
@@ -115,6 +107,24 @@ void PrintList()
 
 }
 
+void NewMethod()
+{
+    if (args[1] == string.Empty || args[2] == string.Empty || args[3] == string.Empty)
+    {
+        Console.WriteLine("Incorrect input. List is not saved.");
+    }
+
+    if (Wordlist.GetLists().Contains(args[1]))
+    {
+        Console.WriteLine("File already exist. Choose other name.");
+        return;
+    }
+
+    Wordlist currentWordlist = new Wordlist(args[1], args[2], args[3]);
+    currentWordlist.Save();
+
+}
+
 void AddMethod()
 {
     
@@ -124,6 +134,8 @@ void AddMethod()
         string language2 = wordlist.Languages[1];
         string firstWord;
         string secondWord;
+
+        
 
         if (args[1] == null)
         {
@@ -145,8 +157,18 @@ void AddMethod()
             return;
         }
 
+        try
+        {
+
             wordlist.Add(firstWord, secondWord);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Word not added");
+            throw;
+        }
             wordlist.Save();
+
         
         } while (!string.IsNullOrEmpty(firstWord) || !string.IsNullOrEmpty(secondWord));
 
@@ -157,13 +179,12 @@ void RemoveMethod()
     
     Wordlist removelist = Wordlist.LoadList(args[1]);
 
-    for (int i = 3; i < userInput.Length; i++)
+    for (int i = 3; i < args.Length; i++)
     {
 
         string wordToRemove = args[i];
        
         string inputLanguage = args[2];
-        
 
     if (wordToRemove == null || inputLanguage == null) 
     {
@@ -184,9 +205,10 @@ void RemoveMethod()
     }
 
     removelist.Remove(translation, wordToRemove);
-
-    removelist.Save();
     
+    removelist.Save();
+
+    Console.WriteLine("Word(s) removed");
     }
 
 }
@@ -240,8 +262,10 @@ void PracticeMethod()
         string word2Practice = practiceWord.Translations[practiceWord.FromLanguage]; 
         int randomTranslation = Random.Shared.Next(0, 2);
 
+       
         Console.WriteLine($"Translate {word2Practice} from {fromLangugage} to {toLanguage}");
         practiceInput = Console.ReadLine();
+
 
         if (string.IsNullOrEmpty(practiceInput))
         {
@@ -252,11 +276,13 @@ void PracticeMethod()
         if (practiceInput == practiceWord.Translations[practiceWord.ToLanguage])
         {
             Console.WriteLine("Correct!");
+            Console.WriteLine();
             score += 1;
         }
         else
         {
             Console.WriteLine($"Incorrect the correct translation is {practiceWord.Translations[practiceWord.ToLanguage]} ");
+            Console.WriteLine();
             wrongCount += 1;
 
         }

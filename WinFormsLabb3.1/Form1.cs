@@ -14,12 +14,6 @@ namespace WinFormsLabb3._1
         private int score;
         private int wrongCount;
         private Word practiceWord;
-        private Word word2Practice;
-        private string fromLangugage;
-        private string toLanguage;
-        private string translationFrom;
-        private string translationTo;
-        private string translsations;
         private string _word;
         private int _sortLanguage = 0;
 
@@ -27,18 +21,23 @@ namespace WinFormsLabb3._1
         {
             InitializeComponent();
             ShowAllLists();
-            //listBoxLists.SelectedItem = listBoxLists.Items[1];
-            //
+            listBoxLists.SelectedItem = listBoxLists.Items[0];
+            _nameOfList = listBoxLists.Text.ToLower();
+            ChooseWordlist();
+            
+
+
         }
 
         private void listBoxLists_SelectedIndexChanged(object sender, EventArgs e)
         {
             textBoxShowCorrect.Text = string.Empty;
+            _nameOfList = listBoxLists.Text.ToLower();
+            ChooseWordlist();
         }
 
         void ShowAllLists()
         {
-
 
             foreach (var file in Wordlist.GetLists())
             {
@@ -63,12 +62,11 @@ namespace WinFormsLabb3._1
             ShowAllLists();
         }
 
+
         private void ListName_TextChanged(object sender, EventArgs e)
         {
-
             textBoxShowCorrect.Text = string.Empty;
             _listName = ListName.Text;
-
         }
 
         private void textBoxLanguage1_TextChanged(object sender, EventArgs e)
@@ -87,13 +85,17 @@ namespace WinFormsLabb3._1
             {
                 return;
             }
+            if (Wordlist.GetLists().Contains(ListName.Text))
+            {
+                textBoxShowError.Text = "File already exist. Choose other name.";
+                return;
+            }
             Wordlist wordlist = new Wordlist(_listName, _language1, _language2);
             wordlist.Save();
         }
 
         private void textBoxPracticeInput_TextChanged(object sender, EventArgs e)
         {
-            
         }
 
         void PracticeWord()
@@ -107,11 +109,15 @@ namespace WinFormsLabb3._1
             int randomTranslation = Random.Shared.Next(0, 2);
             textBoxPracticeInput.Text = $"Translate {word2Practice} from {fromLangugage} to {toLanguage}";
 
-
-
         }
 
         private void listBoxLists_MouseDown(object sender, MouseEventArgs e)
+        {
+            ChooseWordlist();
+
+        }
+
+        void ChooseWordlist()
         {
             _nameOfList = listBoxLists.Text.ToLower();
 
@@ -119,7 +125,6 @@ namespace WinFormsLabb3._1
             FillListboxWords();
             labelFirstWord.Text = $"Enter word in {Wordlist.LoadList(_nameOfList).Languages[0]}";
             labelSecondWord.Text = $"Enter word in {Wordlist.LoadList(_nameOfList).Languages[1]}";
-            
 
         }
 
@@ -146,14 +151,11 @@ namespace WinFormsLabb3._1
         {
             _answer = textBoxAnswer.Text;
             CheckIfCorrect();
-           
-
+            
         }
 
         private void textBoxShowResult_TextChanged(object sender, EventArgs e)
         {
-
-
         }
 
         void Practice()
@@ -182,8 +184,7 @@ namespace WinFormsLabb3._1
             }
 
             
-
-            if (_answer == practiceWord.Translations[practiceWord.ToLanguage])
+            if (_answer.ToLower() == practiceWord.Translations[practiceWord.ToLanguage].ToLower())
             {
                 textBoxShowCorrect.Text = "Correct!";
                 score += 1;
@@ -194,7 +195,6 @@ namespace WinFormsLabb3._1
                     $"Incorrect the correct translation is {practiceWord.Translations[practiceWord.ToLanguage]} ";
 
                 wrongCount += 1;
-
             }
 
         }
@@ -226,8 +226,6 @@ namespace WinFormsLabb3._1
 
         private void dataGridWords_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
-
         }
 
 
@@ -256,8 +254,6 @@ namespace WinFormsLabb3._1
         {
 
 
-
-
             for (int i = 0; i < translations.Length; i++)
             {
 
@@ -267,19 +263,16 @@ namespace WinFormsLabb3._1
                     listBoxWords.Items.Add(translations[i] + " ; " + translations[j]);
                 }
 
-
             }
 
         }
 
         private void textBoxTranslationsFrom_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void textBoxWortTo_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -328,32 +321,26 @@ namespace WinFormsLabb3._1
             }
             listBoxWords.Items.Remove(_word);
 
-
             removelist.Remove(0, thisWordWillBeRemoved);
-
 
             removelist.Save();
 
             textBoxShowCount.Text = $"Number of words: {removelist.Count().ToString()}";
-            
 
         }
 
         private void textBoxNumberOfWords_TextChanged(object sender, EventArgs e)
         {
-            
         }
 
         private void textBoxShowCount_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void buttonSortLanguage1_Click(object sender, EventArgs e)
         {
             _sortLanguage = 0;
             FillListboxWords();
-
         }
 
         private void buttonSortLanguage2_Click(object sender, EventArgs e)
@@ -364,7 +351,10 @@ namespace WinFormsLabb3._1
 
         private void labelCount_Click(object sender, EventArgs e)
         {
+        }
 
+        private void textBoxShowError_TextChanged(object sender, EventArgs e)
+        {
         }
     }
 }

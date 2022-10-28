@@ -5,7 +5,6 @@ namespace Labb3
 {
     public class Word
     {
-        
         public string[] Translations { get; }
         public int FromLanguage { get; }
         public int ToLanguage { get; }
@@ -23,7 +22,6 @@ namespace Labb3
             this.ToLanguage = toLanguage;
             this.Translations = translations;
             
-
         }
     }
 }

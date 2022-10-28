@@ -14,14 +14,6 @@ namespace Labb3Library
     {
         private List<Word> Words  = new List<Word>();
         
-        //private string swedishWord;
-        //private int totcount;
-        //private string folderPath;
-        //private static object name;
-        //private string translations;
-        //private object writer;
-        //private string[] languages;
-        //private string wordlist;
 
         public string[] Translations { get; }
 
@@ -109,7 +101,7 @@ namespace Labb3Library
                 writer.WriteLine($"{Languages[0]};{Languages[1]}");
                
 
-                for (int i = 0; i < Words.Count; i++)//words
+                for (int i = 0; i < Words.Count; i++)
                 {
 
                     {
@@ -163,17 +155,15 @@ namespace Labb3Library
         public void List(int sortByTranslation, Action<string[]> showTranslations)
         {
             
-
             Words = (from w in Words orderby w.Translations[sortByTranslation] select w).ToList();
 
             
-            foreach (Word w in Words)//words
+            foreach (Word w in Words)
             {
                 showTranslations(w.Translations);
                 
             }
-
-
+            
         }
 
 

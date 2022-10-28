@@ -61,6 +61,7 @@ namespace WinFormsLabb3._1
             this.buttonSortLanguage1 = new System.Windows.Forms.Button();
             this.buttonSortLanguage2 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.textBoxShowError = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.groupBoxAddLists.SuspendLayout();
             this.groupBoxPractice.SuspendLayout();
@@ -96,7 +97,7 @@ namespace WinFormsLabb3._1
             this.buttonAddList.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAddList.Name = "buttonAddList";
             this.buttonAddList.Size = new System.Drawing.Size(155, 31);
-            this.buttonAddList.TabIndex = 2;
+            this.buttonAddList.TabIndex = 5;
             this.buttonAddList.Text = "Add ";
             this.buttonAddList.UseVisualStyleBackColor = true;
             this.buttonAddList.Click += new System.EventHandler(this.buttonAddList_Click);
@@ -156,20 +157,20 @@ namespace WinFormsLabb3._1
             // 
             // textBoxLanguage2
             // 
-            this.textBoxLanguage2.Location = new System.Drawing.Point(0, 106);
+            this.textBoxLanguage2.Location = new System.Drawing.Point(0, 153);
             this.textBoxLanguage2.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxLanguage2.Name = "textBoxLanguage2";
             this.textBoxLanguage2.Size = new System.Drawing.Size(156, 27);
-            this.textBoxLanguage2.TabIndex = 5;
+            this.textBoxLanguage2.TabIndex = 4;
             this.textBoxLanguage2.TextChanged += new System.EventHandler(this.textBoxLanguage2_TextChanged);
             // 
             // textBoxLanguage1
             // 
-            this.textBoxLanguage1.Location = new System.Drawing.Point(0, 153);
+            this.textBoxLanguage1.Location = new System.Drawing.Point(0, 106);
             this.textBoxLanguage1.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxLanguage1.Name = "textBoxLanguage1";
             this.textBoxLanguage1.Size = new System.Drawing.Size(156, 27);
-            this.textBoxLanguage1.TabIndex = 5;
+            this.textBoxLanguage1.TabIndex = 3;
             this.textBoxLanguage1.TextChanged += new System.EventHandler(this.textBoxLanguage1_TextChanged);
             // 
             // ListName
@@ -178,7 +179,7 @@ namespace WinFormsLabb3._1
             this.ListName.Margin = new System.Windows.Forms.Padding(2);
             this.ListName.Name = "ListName";
             this.ListName.Size = new System.Drawing.Size(156, 27);
-            this.ListName.TabIndex = 4;
+            this.ListName.TabIndex = 2;
             this.ListName.TextChanged += new System.EventHandler(this.ListName_TextChanged);
             // 
             // groupBoxPractice
@@ -398,11 +399,22 @@ namespace WinFormsLabb3._1
             this.label5.Text = "Sort by language";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // textBoxShowError
+            // 
+            this.textBoxShowError.Location = new System.Drawing.Point(21, 447);
+            this.textBoxShowError.Multiline = true;
+            this.textBoxShowError.Name = "textBoxShowError";
+            this.textBoxShowError.ReadOnly = true;
+            this.textBoxShowError.Size = new System.Drawing.Size(161, 65);
+            this.textBoxShowError.TabIndex = 11;
+            this.textBoxShowError.TextChanged += new System.EventHandler(this.textBoxShowError_TextChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(737, 569);
+            this.Controls.Add(this.textBoxShowError);
             this.Controls.Add(this.groupBoxPractice);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.buttonSortLanguage2);
@@ -467,5 +479,6 @@ namespace WinFormsLabb3._1
         private Button buttonSortLanguage2;
         private Button buttonSortLanguage1;
         private Label label5;
+        private TextBox textBoxShowError;
     }
 }
