@@ -13,7 +13,6 @@ namespace Labb3
         {
 
             Translations = translations;
-            
         }
       
         public Word(int fromLanguage, int toLanguage, params string[] translations)
