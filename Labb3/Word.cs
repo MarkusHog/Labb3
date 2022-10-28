@@ -11,7 +11,6 @@ namespace Labb3
 
         public Word(params string[] translations)
         {
-
             Translations = translations;
         }
       
