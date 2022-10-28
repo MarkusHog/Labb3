@@ -8,6 +8,10 @@ using Labb3Library;
 
 //PrintAlternatives();
 
+        if (args.Length == 0)
+        {
+            PrintAlternatives();
+        }
 
         //string[] inputchoise = new[] { "-add", "-lists", "-new", "-add", "-remove", "-words", "-count", "-practice" };
 
@@ -15,10 +19,6 @@ using Labb3Library;
 
         string[] userInput = input.Split((" "));
 
-        if (input.Trim() == string.Empty)
-        {
-            PrintAlternatives();
-        }
 
 
         switch (userInput[0])
@@ -74,7 +74,7 @@ using Labb3Library;
 
             default:
                 Console.WriteLine("Invalid entry. ");
-                //PrintAlternatives();
+                PrintAlternatives();
                 Console.WriteLine();
                 break;
         }
@@ -193,13 +193,16 @@ void RemoveMethod()
 
 void SortMethod()
 {
-    if (string.IsNullOrEmpty(userInput[1]))
+   
+    if (args[1] == String.Empty)
     {
-        Console.WriteLine("Invalid input"); 
+        Console.WriteLine("Invalid input");
+        PrintAlternatives();
         return;
     }
 
-    Wordlist sortList = Wordlist.LoadList(userInput[1]);
+
+    Wordlist sortList = Wordlist.LoadList(args[1]);
     string inputLanguage2 = args[2];
     int translation2 = 3;
 
