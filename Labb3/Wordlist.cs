@@ -52,11 +52,9 @@ namespace Labb3Library
         public static Wordlist LoadList(string name) 
         {
             
-
             string LoacalAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             string filePath = Path.Combine(LoacalAppData, "Labb3",$"{name}.dat");
             
-           
             
             using (StreamReader reader = new StreamReader(filePath))
             {
